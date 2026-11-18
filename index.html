@@ -29,7 +29,6 @@
       border-radius: 10px; padding: 16px; margin: 24px 0;
       font-family: monospace; font-size: 15px; color: var(--cyan);
     }
-    .btn-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     button {
       background: linear-gradient(135deg, #d99b26, #f5b942); color: #07090e;
       border: none; padding: 18px 24px; border-radius: 10px;
@@ -42,15 +41,13 @@
 <body>
   <div class="container">
     <h1 class="brand-title">Mustafa Sindy</h1>
-    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 GoldHEN Direct Loader</p>
+    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 GoldHEN Host Hub</p>
 
     <div class="status-box" id="status">
-      [READY] Select option to inject payload into memory...
+      [READY] Select payload to cache / trigger...
     </div>
 
-    <div class="btn-grid">
-      <button onclick="injectGoldHEN()">⚡ INJECT GOLDHEN (PORT 9090)</button>
-    </div>
+    <button onclick="loadPayloadDirect()">⚡ LOAD GOLDHEN v2.4b18</button>
   </div>
 
   <script>
@@ -60,25 +57,14 @@
       box.textContent = msg;
     }
 
-    async function injectGoldHEN() {
+    async function loadPayloadDirect() {
       try {
-        setStatus('[1/2] Fetching goldhen.bin from host...', '#f5b942');
-        const response = await fetch('goldhen.bin');
-        if (!response.ok) throw new Error('goldhen.bin not found in repository!');
-        const buffer = await response.arrayBuffer();
+        setStatus('[1/2] Loading goldhen.bin into browser cache...', '#f5b942');
+        const res = await fetch('goldhen.bin');
+        if (!res.ok) throw new Error('goldhen.bin missing in repo root!');
+        const buffer = await res.arrayBuffer();
 
-        setStatus(`[2/2] Sending ${buffer.byteLength} bytes to PS4 BinLoader (9090)...`, '#f5b942');
-        
-        // ارسال مباشر عبر البورت الداخلي لـ GoldHEN BinLoader
-        await fetch('http://127.0.0.1:9090', {
-          method: 'POST',
-          body: buffer
-        }).catch(() => {
-          // Fallback if CORS blocks direct fetch to localhost loopback
-          throw new Error('BinLoader socket closed. Ensure GoldHEN loader listener is active.');
-        });
-
-        setStatus('[SUCCESS] GoldHEN Injected & Executed!', '#4ade80');
+        setStatus(`[SUCCESS] Payload cached! (${buffer.byteLength} bytes). Run PPPwn via Ethernet to inject.`, '#4ade80');
       } catch (err) {
         setStatus(`[ERROR] ${err.message}`, '#f87171');
       }
