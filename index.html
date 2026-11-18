@@ -3,50 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUSTAFA SINDY // PS4 11.00 Exploit Host</title>
+  <title>MUSTAFA SINDY // PS4 11.00 Host</title>
   <style>
     :root {
-      --bg: #07090e;
-      --card: #0f1420;
-      --gold: #f5b942;
-      --gold-glow: rgba(245, 185, 66, 0.35);
-      --cyan: #38bdf8;
-      --text: #e2e8f0;
-      --muted: #64748b;
+      --bg: #07090e; --card: #0f1420; --gold: #f5b942;
+      --gold-glow: rgba(245, 185, 66, 0.35); --cyan: #38bdf8; --text: #e2e8f0; --muted: #64748b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
     body {
       background: radial-gradient(circle at top, #131b2e 0%, var(--bg) 70%);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
     .container {
-      width: 90%; max-width: 720px;
-      background: var(--card);
-      border: 1px solid rgba(245, 185, 66, 0.25);
-      border-radius: 16px; padding: 40px 32px; text-align: center;
+      width: 90%; max-width: 720px; background: var(--card);
+      border: 1px solid rgba(245, 185, 66, 0.25); border-radius: 16px; padding: 40px 32px; text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--gold-glow);
     }
     .brand-title {
-      font-size: 44px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+      font-size: 42px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
       background: linear-gradient(90deg, #ffffff, var(--gold), #ffffff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;
     }
     .status-box {
       background: rgba(7, 9, 14, 0.9); border: 1px solid #1e293b;
       border-radius: 10px; padding: 16px; margin: 24px 0;
       font-family: monospace; font-size: 15px; color: var(--cyan);
     }
+    .btn-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     button {
       background: linear-gradient(135deg, #d99b26, #f5b942); color: #07090e;
       border: none; padding: 18px 24px; border-radius: 10px;
       font-size: 18px; font-weight: 700; cursor: pointer; width: 100%;
-      box-shadow: 0 0 20px var(--gold-glow);
+      box-shadow: 0 0 20px var(--gold-glow); transition: 0.2s;
     }
     button:hover { opacity: 0.9; transform: translateY(-2px); }
   </style>
@@ -54,13 +42,15 @@
 <body>
   <div class="container">
     <h1 class="brand-title">Mustafa Sindy</h1>
-    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 Kernel Exploit &amp; GoldHEN Loader</p>
+    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 GoldHEN Direct Loader</p>
 
     <div class="status-box" id="status">
-      [READY] Click below to run exploit &amp; load GoldHEN...
+      [READY] Select option to inject payload into memory...
     </div>
 
-    <button onclick="runExploitChain()">⚡ RUN GOLDHEN</button>
+    <div class="btn-grid">
+      <button onclick="injectGoldHEN()">⚡ INJECT GOLDHEN (PORT 9090)</button>
+    </div>
   </div>
 
   <script>
@@ -70,22 +60,25 @@
       box.textContent = msg;
     }
 
-    async function runExploitChain() {
+    async function injectGoldHEN() {
       try {
-        setStatus('[1/2] Fetching goldhen.bin payload...', '#f5b942');
-        const res = await fetch('goldhen.bin');
-        if (!res.ok) throw new Error('goldhen.bin not found!');
-        const payloadBuffer = await res.arrayBuffer();
+        setStatus('[1/2] Fetching goldhen.bin from host...', '#f5b942');
+        const response = await fetch('goldhen.bin');
+        if (!response.ok) throw new Error('goldhen.bin not found in repository!');
+        const buffer = await response.arrayBuffer();
 
-        setStatus('[2/2] Running WebKit / Kernel exploit chain...', '#f5b942');
+        setStatus(`[2/2] Sending ${buffer.byteLength} bytes to PS4 BinLoader (9090)...`, '#f5b942');
         
-        // ل ڤێرە زنجیرەیا ROP و Kernel Exploit (وەک pOOBs4 یان لۆجیکێن 11.00) دێ کار کەت
-        // و payloadBuffer دێ ئینجێکت کەتە ناڤ ممۆریێ بۆ کارپێکرنا GoldHEN.
-        
-        setTimeout(() => {
-          setStatus('[SUCCESS] GoldHEN Activated Successfully!', '#4ade80');
-        }, 1500);
+        // ارسال مباشر عبر البورت الداخلي لـ GoldHEN BinLoader
+        await fetch('http://127.0.0.1:9090', {
+          method: 'POST',
+          body: buffer
+        }).catch(() => {
+          // Fallback if CORS blocks direct fetch to localhost loopback
+          throw new Error('BinLoader socket closed. Ensure GoldHEN loader listener is active.');
+        });
 
+        setStatus('[SUCCESS] GoldHEN Injected & Executed!', '#4ade80');
       } catch (err) {
         setStatus(`[ERROR] ${err.message}`, '#f87171');
       }
