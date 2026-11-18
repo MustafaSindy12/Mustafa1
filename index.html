@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#030b1b">
+<title>Mustafa Sindy | Ultimate PS4 Host</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 78% 0,#064c9460,transparent 35%),linear-gradient(135deg,#030817,#07172e 55%,#020713);color:#eff7ff;font:16px Arial,sans-serif;min-height:100vh}
+.wrap{max-width:1050px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #174a7b;padding:8px 0 18px}.brand{font-weight:900;letter-spacing:2px;font-size:18px}.brand small{display:block;color:#35cfff;font-size:10px;letter-spacing:3px;margin-top:5px}.chip{border:1px solid #176eaa;border-radius:30px;padding:8px 12px;color:#a9eaff;font-size:11px}
+.hero{padding:30px 0 20px}h1{font-size:clamp(32px,6vw,55px);margin:6px 0;color:white}h1 span{color:#28caff}.muted{color:#9bb2d0;line-height:1.55}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{border:1px solid #15538b;border-radius:15px;background:linear-gradient(145deg,#10233e,#071326);padding:18px;box-shadow:0 12px 35px #0004}.card h2{font-size:17px;margin:0 0 8px}.tag{color:#38d3ff;font-size:10px;letter-spacing:1.5px;font-weight:800}.primary,.secondary{display:block;width:100%;border-radius:10px;padding:14px 15px;text-align:center;text-decoration:none;font-weight:800;margin-top:12px;cursor:pointer}.primary{color:white;background:linear-gradient(90deg,#087be5,#0643ae);border:1px solid #3dd7ff;box-shadow:0 0 18px #087be566}.secondary{color:#d5edff;background:#102846;border:1px solid #285780}.status{display:flex;gap:10px;align-items:center;margin:10px 0;color:#44e99b;font-weight:700}.dot{width:9px;height:9px;border-radius:50%;background:#44e99b;box-shadow:0 0 12px #44e99b}.notice{border-left:3px solid #25cfff;padding:10px 13px;background:#0b2037;color:#b8d4f3;border-radius:5px;font-size:13px;line-height:1.5;margin-top:15px}
+.row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #ffffff12;padding:9px 0;font-size:14px}.row span{color:#9bb2d0}#log{background:#030a14;border:1px solid #183958;border-radius:9px;padding:12px;min-height:90px;max-height:180px;overflow:auto;white-space:pre-wrap;font:12px/1.6 Consolas,monospace;color:#c5dcf5}
+button:focus,a:focus{outline:2px solid white;outline-offset:3px}footer{border-top:1px solid #174a7b;margin-top:22px;padding:16px 0;color:#7f9abb;font-size:11px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.wrap{padding:14px}.chip{font-size:9px}}
+</style></head>
+<body><div class="wrap">
+<header class="top"><div class="brand">MUSTAFA SINDY<small>ULTIMATE PS4 HOST</small></div><div class="chip">PS4 FIRMWARE 11.00</div></header>
+<section class="hero"><div class="tag">PLAYSTATION 4 · MULTI-HOST DASHBOARD</div><h1>Choose your <span>host.</span></h1><p class="muted">Multiple independent host domains for firmware 11.00, with connection checks and fallback links. If one domain cannot resolve, try another host domain.</p></section>
+<div class="grid">
+<section class="card">
+ <div class="tag">PRIMARY ROUTE</div><h2>PS4AIO — CSSFontFace</h2><p class="muted">CSSFontFace host flow lists firmware 6.00–11.02, including 11.00.</p>
+ <a class="primary" href="https://eddieygaming.github.io/ps4aio/css/version-selector.html" target="_blank" rel="noopener">OPEN CSSFONTFACE HOST</a>
+</section>
+<section class="card">
+ <div class="tag">ALTERNATE ROUTE</div><h2>PS4AIO — Slopkit selector</h2><p class="muted">Separate selector for the 11.00–13.00 host branch. Follow its firmware-specific instructions.</p>
+ <a class="primary" href="https://eddieygaming.github.io/ps4aio/slopkit/version-selector.html" target="_blank" rel="noopener">OPEN SLOPKIT SELECTOR</a>
+</section>
+<section class="card">
+ <div class="tag">MIRROR / FALLBACK</div><h2>PS4JB Host</h2><p class="muted">Independent GitHub Pages host; its published table lists CSSFontFace + Lapse for 7.00–11.02.</p>
+ <a class="secondary" href="https://x-f1reball-x.github.io/ps4jb/" target="_blank" rel="noopener">OPEN PS4JB HOST</a>
+</section>
+<section class="card">
+ <div class="tag">ALTERNATE HOST</div><h2>Karo Host</h2><p class="muted">Another public PS4 host collection. Choose the matching firmware option on the page.</p>
+ <a class="secondary" href="https://karo218.ir/" target="_blank" rel="noopener">OPEN KARO HOST</a>
+</section>
+</div>
+<div class="grid" style="margin-top:14px">
+<section class="card"><h2>Connection diagnostics</h2><div class="status"><i class="dot"></i><span id="net">Checking browser network…</span></div><div class="row"><span>Dashboard</span><b>Loaded</b></div><div class="row"><span>Firmware profile</span><b>11.00</b></div><div class="row"><span>Host reachability</span><b>Check each link above</b></div><button class="secondary" id="refresh">REFRESH CONNECTION STATUS</button><p class="notice">“Online” only means the console reports a network connection. It does not prove a particular host's DNS or server is reachable.</p></section>
+<section class="card"><h2>DNS troubleshooting</h2><p class="muted">If PS4 says “Couldn't resolve host name”:</p><div class="row"><span>1.</span><b>Settings → Network</b></div><div class="row"><span>2.</span><b>Set Up Internet Connection</b></div><div class="row"><span>3.</span><b>Choose your Wi-Fi / LAN</b></div><div class="row"><span>4.</span><b>IP & DNS settings: Automatic</b></div><div class="row"><span>5.</span><b>Test Internet Connection</b></div><p class="notice">Try automatic DNS first. If other sites also fail, restart the router and test the connection. This page cannot change PS4 DNS settings for you.</p></section>
+</div>
+<section class="card" style="margin-top:14px"><h2>Activity log</h2><div id="log">[READY] Mustafa Sindy Ultimate Host loaded.
+[INFO] Firmware profile: 11.00.
+[INFO] Select a host link. A DNS failure on one domain does not mean every host is down.</div></section>
+<footer><span>MADE BY MUSTAFA SINDY</span><span>PS4 HOST DASHBOARD · 11.00</span><span>Online / Offline dashboard</span></footer>
+</div>
+<script>
+(()=>{'use strict';const net=document.getElementById('net'),log=document.getElementById('log');
+function check(){const on=navigator.onLine;net.textContent=on?'Browser reports network online':'Browser reports offline';net.style.color=on?'#44e99b':'#ffbd69';log.textContent+='\\n['+new Date().toLocaleTimeString()+'] '+(on?'Network interface reports online. Test a host link.':'Browser reports offline.');}
+document.getElementById('refresh').addEventListener('click',check);
+document.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{log.textContent+='\\n['+new Date().toLocaleTimeString()+'] Opening '+a.href; }));
+window.addEventListener('online',check);window.addEventListener('offline',check);check();
+})();
+</script></body></html>
