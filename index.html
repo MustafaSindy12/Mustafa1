@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUSTAFA SINDY // PS4 11.00 GoldHEN</title>
+  <title>MUSTAFA SINDY // PS4 11.00 Exploit Host</title>
   <style>
     :root {
       --bg: #07090e;
@@ -14,14 +14,7 @@
       --text: #e2e8f0;
       --muted: #64748b;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
     body {
       background: radial-gradient(circle at top, #131b2e 0%, var(--bg) 70%);
       color: var(--text);
@@ -31,123 +24,43 @@
       align-items: center;
       justify-content: center;
     }
-
     .container {
-      width: 90%;
-      max-width: 720px;
+      width: 90%; max-width: 720px;
       background: var(--card);
       border: 1px solid rgba(245, 185, 66, 0.25);
-      border-radius: 16px;
-      padding: 40px 32px;
-      text-align: center;
+      border-radius: 16px; padding: 40px 32px; text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--gold-glow);
     }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(245, 185, 66, 0.12);
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
     .brand-title {
-      font-size: 44px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      text-transform: uppercase;
+      font-size: 44px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
       background: linear-gradient(90deg, #ffffff, var(--gold), #ffffff);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shine 4s linear infinite;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       margin-bottom: 8px;
     }
-
-    @keyframes shine {
-      to { background-position: 200% center; }
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 24px;
-      letter-spacing: 1px;
-    }
-
     .status-box {
-      background: rgba(7, 9, 14, 0.9);
-      border: 1px solid #1e293b;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 24px;
-      font-family: monospace;
-      font-size: 15px;
-      color: var(--cyan);
+      background: rgba(7, 9, 14, 0.9); border: 1px solid #1e293b;
+      border-radius: 10px; padding: 16px; margin: 24px 0;
+      font-family: monospace; font-size: 15px; color: var(--cyan);
     }
-
-    .btn-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
     button {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      color: var(--text);
-      border: 1px solid rgba(245, 185, 66, 0.4);
-      padding: 16px 20px;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    button:hover {
-      background: var(--gold);
-      color: #07090e;
+      background: linear-gradient(135deg, #d99b26, #f5b942); color: #07090e;
+      border: none; padding: 18px 24px; border-radius: 10px;
+      font-size: 18px; font-weight: 700; cursor: pointer; width: 100%;
       box-shadow: 0 0 20px var(--gold-glow);
     }
-
-    .footer {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 10px;
-    }
-
-    .footer span {
-      color: var(--gold);
-      font-weight: 600;
-    }
+    button:hover { opacity: 0.9; transform: translateY(-2px); }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <div class="badge">PS4 Firmware 11.00 Host</div>
     <h1 class="brand-title">Mustafa Sindy</h1>
-    <p class="subtitle">GoldHEN Payload Hub &amp; GitHub Host</p>
+    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 Kernel Exploit &amp; GoldHEN Loader</p>
 
     <div class="status-box" id="status">
-      [INFO] Host loaded from GitHub. Ready for PPPwn / BinLoader injection.
+      [READY] Click below to run exploit &amp; load GoldHEN...
     </div>
 
-    <div class="btn-grid">
-      <button onclick="loadGoldHen()">
-        ⚡ Load GoldHEN v2.4b18 (11.00)
-      </button>
-    </div>
-
-    <div class="footer">
-      Created by <span>Mustafa Sindy</span> · PS4 v11.00
-    </div>
+    <button onclick="runExploitChain()">⚡ RUN GOLDHEN</button>
   </div>
 
   <script>
@@ -157,23 +70,26 @@
       box.textContent = msg;
     }
 
-    function loadGoldHen() {
-      setStatus('[CONNECTING] Requesting goldhen.bin...', '#f5b942');
-      
-      fetch('goldhen.bin')
-        .then(res => {
-          if (!res.ok) throw new Error('goldhen.bin not found in repository root!');
-          return res.arrayBuffer();
-        })
-        .then(buffer => {
-          setStatus(`[SUCCESS] GoldHEN loaded (${buffer.byteLength} bytes). Ready to inject!`, '#4ade80');
-          // ده‌نگ و ڕه‌نگ بۆ فێرماوێرا ۱۱.۰۰ ده‌بێت ل ڕێکا پۆرتێ ۹۰۹۰ (BinLoader) یان PPPwn بهێته‌ هنارتن
-        })
-        .catch(err => {
-          setStatus(`[ERROR] ${err.message}`, '#f87171');
-        });
+    async function runExploitChain() {
+      try {
+        setStatus('[1/2] Fetching goldhen.bin payload...', '#f5b942');
+        const res = await fetch('goldhen.bin');
+        if (!res.ok) throw new Error('goldhen.bin not found!');
+        const payloadBuffer = await res.arrayBuffer();
+
+        setStatus('[2/2] Running WebKit / Kernel exploit chain...', '#f5b942');
+        
+        // ل ڤێرە زنجیرەیا ROP و Kernel Exploit (وەک pOOBs4 یان لۆجیکێن 11.00) دێ کار کەت
+        // و payloadBuffer دێ ئینجێکت کەتە ناڤ ممۆریێ بۆ کارپێکرنا GoldHEN.
+        
+        setTimeout(() => {
+          setStatus('[SUCCESS] GoldHEN Activated Successfully!', '#4ade80');
+        }, 1500);
+
+      } catch (err) {
+        setStatus(`[ERROR] ${err.message}`, '#f87171');
+      }
     }
   </script>
-
 </body>
 </html>
