@@ -41,13 +41,13 @@
 <body>
   <div class="container">
     <h1 class="brand-title">Mustafa Sindy</h1>
-    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 GoldHEN Host Hub</p>
+    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 GitHub Host</p>
 
     <div class="status-box" id="status">
-      [READY] Select payload to cache / trigger...
+      [READY] Click to fetch goldhen.bin from GitHub...
     </div>
 
-    <button onclick="loadPayloadDirect()">⚡ LOAD GOLDHEN v2.4b18</button>
+    <button onclick="fetchFromGitHub()">⚡ LOAD GOLDHEN PAYLOAD</button>
   </div>
 
   <script>
@@ -57,14 +57,23 @@
       box.textContent = msg;
     }
 
-    async function loadPayloadDirect() {
+    async function fetchFromGitHub() {
       try {
-        setStatus('[1/2] Loading goldhen.bin into browser cache...', '#f5b942');
-        const res = await fetch('goldhen.bin');
-        if (!res.ok) throw new Error('goldhen.bin missing in repo root!');
-        const buffer = await res.arrayBuffer();
+        setStatus('[1/2] Fetching goldhen.bin from repository...', '#f5b942');
+        
+        // استخدام استعلام عشوائي لمنع التخزين المؤقت (Cache Bypass) وتجاوز مشاكل غيتهب
+        const timestamp = new Date().getTime();
+        const response = await fetch(`goldhen.bin?t=${timestamp}`);
+        
+        if (!response.ok) throw new Error(`File not found (HTTP ${response.status})`);
+        
+        const buffer = await response.arrayBuffer();
+        
+        if (buffer.byteLength < 100000) {
+          throw new Error('Fetched file is corrupted or not a valid binary!');
+        }
 
-        setStatus(`[SUCCESS] Payload cached! (${buffer.byteLength} bytes). Run PPPwn via Ethernet to inject.`, '#4ade80');
+        setStatus(`[SUCCESS] Loaded ${buffer.byteLength} bytes successfully from GitHub!`, '#4ade80');
       } catch (err) {
         setStatus(`[ERROR] ${err.message}`, '#f87171');
       }
