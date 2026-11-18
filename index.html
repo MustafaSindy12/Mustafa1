@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUSTAFA SINDY // PS4 11.00 Host</title>
+  <title>MUSTAFA SINDY // PS4 11.00 GoldHEN</title>
   <style>
     :root {
       --bg: #07090e; --card: #0f1420; --gold: #f5b942;
@@ -41,13 +41,13 @@
 <body>
   <div class="container">
     <h1 class="brand-title">Mustafa Sindy</h1>
-    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 GitHub Host</p>
+    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 GoldHEN Hub</p>
 
     <div class="status-box" id="status">
-      [READY] Click to fetch goldhen.bin from GitHub...
+      [READY] Click to load GoldHEN payload...
     </div>
 
-    <button onclick="fetchFromGitHub()">⚡ LOAD GOLDHEN PAYLOAD</button>
+    <button onclick="loadPayload()">⚡ LOAD GOLDHEN v2.4b18</button>
   </div>
 
   <script>
@@ -57,23 +57,16 @@
       box.textContent = msg;
     }
 
-    async function fetchFromGitHub() {
+    async function loadPayload() {
       try {
-        setStatus('[1/2] Fetching goldhen.bin from repository...', '#f5b942');
+        setStatus('[1/2] Fetching goldhen.bin...', '#f5b942');
+        const res = await fetch('goldhen.bin', { cache: 'no-store' });
+        if (!res.ok) throw new Error('goldhen.bin not found on server!');
         
-        // استخدام استعلام عشوائي لمنع التخزين المؤقت (Cache Bypass) وتجاوز مشاكل غيتهب
-        const timestamp = new Date().getTime();
-        const response = await fetch(`goldhen.bin?t=${timestamp}`);
-        
-        if (!response.ok) throw new Error(`File not found (HTTP ${response.status})`);
-        
-        const buffer = await response.arrayBuffer();
-        
-        if (buffer.byteLength < 100000) {
-          throw new Error('Fetched file is corrupted or not a valid binary!');
-        }
+        const buffer = await res.arrayBuffer();
+        if (buffer.byteLength < 50000) throw new Error('Invalid file size detected!');
 
-        setStatus(`[SUCCESS] Loaded ${buffer.byteLength} bytes successfully from GitHub!`, '#4ade80');
+        setStatus(`[SUCCESS] GoldHEN Ready (${buffer.byteLength} bytes)!`, '#4ade80');
       } catch (err) {
         setStatus(`[ERROR] ${err.message}`, '#f87171');
       }
