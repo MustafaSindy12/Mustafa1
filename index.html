@@ -6,28 +6,51 @@
   <title>MUSTAFA SINDY // PS4 11.00 GoldHEN</title>
   <style>
     :root {
-      --bg: #07090e; --card: #0f1420; --gold: #f5b942;
-      --gold-glow: rgba(245, 185, 66, 0.35); --cyan: #38bdf8; --text: #e2e8f0; --muted: #64748b;
+      --bg: #07090e;
+      --card: #0f1420;
+      --gold: #f5b942;
+      --gold-glow: rgba(245, 185, 66, 0.35);
+      --cyan: #38bdf8;
+      --text: #e2e8f0;
+      --muted: #64748b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
     body {
       background: radial-gradient(circle at top, #131b2e 0%, var(--bg) 70%);
-      color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .container {
-      width: 90%; max-width: 720px; background: var(--card);
-      border: 1px solid rgba(245, 185, 66, 0.25); border-radius: 16px; padding: 40px 32px; text-align: center;
+      width: 90%; max-width: 720px;
+      background: var(--card);
+      border: 1px solid rgba(245, 185, 66, 0.25);
+      border-radius: 16px; padding: 40px 32px; text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--gold-glow);
+    }
+    .tag {
+      background: rgba(245, 185, 66, 0.1); border: 1px solid var(--gold);
+      color: var(--gold); padding: 4px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      display: inline-block; margin-bottom: 14px;
     }
     .brand-title {
       font-size: 42px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
       background: linear-gradient(90deg, #ffffff, var(--gold), #ffffff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .brand-sub {
+      color: var(--muted); font-size: 14px; margin-bottom: 24px; letter-spacing: 1px;
     }
     .status-box {
       background: rgba(7, 9, 14, 0.9); border: 1px solid #1e293b;
-      border-radius: 10px; padding: 16px; margin: 24px 0;
+      border-radius: 10px; padding: 18px; margin: 24px 0;
       font-family: monospace; font-size: 15px; color: var(--cyan);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
     }
     button {
       background: linear-gradient(135deg, #d99b26, #f5b942); color: #07090e;
@@ -36,18 +59,27 @@
       box-shadow: 0 0 20px var(--gold-glow); transition: 0.2s;
     }
     button:hover { opacity: 0.9; transform: translateY(-2px); }
+    .footer {
+      margin-top: 24px; font-size: 12px; color: var(--muted);
+    }
+    .footer span { color: var(--gold); font-weight: 600; }
   </style>
 </head>
-<body>
+<body onload="autoLoadPayload()">
   <div class="container">
+    <div class="tag">PS4 Firmware 11.00 Host</div>
     <h1 class="brand-title">Mustafa Sindy</h1>
-    <p style="color: var(--muted); margin-bottom: 20px;">PS4 v11.00 GoldHEN Hub</p>
+    <p class="brand-sub">GoldHEN Payload Hub &amp; GitHub Host</p>
 
     <div class="status-box" id="status">
-      [READY] Click to load GoldHEN payload...
+      [INFO] Initializing payload check...
     </div>
 
-    <button onclick="loadPayload()">⚡ LOAD GOLDHEN v2.4b18</button>
+    <button onclick="autoLoadPayload()">📥 Load GoldHEN v2.4b18 (11.00)</button>
+
+    <div class="footer">
+      Created by <span>Mustafa Sindy</span> &middot; PS4 v11.00
+    </div>
   </div>
 
   <script>
@@ -57,16 +89,17 @@
       box.textContent = msg;
     }
 
-    async function loadPayload() {
+    async function autoLoadPayload() {
       try {
-        setStatus('[1/2] Fetching goldhen.bin...', '#f5b942');
+        setStatus('[1/2] Fetching goldhen.bin from GitHub...', '#f5b942');
         const res = await fetch('goldhen.bin', { cache: 'no-store' });
-        if (!res.ok) throw new Error('goldhen.bin not found on server!');
+        
+        if (!res.ok) throw new Error('goldhen.bin file not found in root!');
         
         const buffer = await res.arrayBuffer();
-        if (buffer.byteLength < 50000) throw new Error('Invalid file size detected!');
+        if (buffer.byteLength < 50000) throw new Error('File is corrupted or invalid size!');
 
-        setStatus(`[SUCCESS] GoldHEN Ready (${buffer.byteLength} bytes)!`, '#4ade80');
+        setStatus(`[SUCCESS] GoldHEN loaded (${buffer.byteLength} bytes). Ready to inject!`, '#4ade80');
       } catch (err) {
         setStatus(`[ERROR] ${err.message}`, '#f87171');
       }
